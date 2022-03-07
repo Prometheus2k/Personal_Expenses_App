@@ -1,6 +1,6 @@
 // import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/adaptive_flat_button.dart';
@@ -27,7 +27,7 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
 
   _NewTransactionState() {
-    print('Constructor NewTransaction State');
+    print('Constructor NewTransactions State');
   }
 
   @override
@@ -71,7 +71,7 @@ class _NewTransactionState extends State<NewTransaction> {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: ColorScheme.light().copyWith(
-              primary: Theme.of(context).accentColor,
+              primary: Theme.of(context).colorScheme.secondary,
             ),
           ),
           child: child,
@@ -135,7 +135,7 @@ class _NewTransactionState extends State<NewTransaction> {
             // ignore: deprecated_member_use
             RaisedButton(
               child: Text('Add Transaction'),
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               textColor: Theme.of(context).textTheme.button.color,
               onPressed: _submitData,
             ),

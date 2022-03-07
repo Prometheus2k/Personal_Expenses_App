@@ -10,25 +10,28 @@ class Chart extends StatelessWidget {
   Chart(this.recentTransactions);
 
   List<Map<String, Object>> get groupedTransactionValues {
-    return List.generate(7, (index) {
-      var today = DateTime.now();
-      var weekdayNumber = today.weekday;
-      var weekDay = today.subtract(Duration(days: weekdayNumber - index));
+    return List.generate(
+      7,
+      (index) {
+        var today = DateTime.now();
+        var weekdayNumber = today.weekday;
+        var weekDay = today.subtract(Duration(days: weekdayNumber - index));
 
-      var totalSum = 0.0;
-      for (var i = 0; i < recentTransactions.length; i++) {
-        if (recentTransactions[i].date.day == weekDay.day &&
-            recentTransactions[i].date.month == weekDay.month &&
-            recentTransactions[i].date.year == weekDay.year) {
-          totalSum += recentTransactions[i].amount;
+        var totalSum = 0.0;
+        for (var i = 0; i < recentTransactions.length; i++) {
+          if (recentTransactions[i].date.day == weekDay.day &&
+              recentTransactions[i].date.month == weekDay.month &&
+              recentTransactions[i].date.year == weekDay.year) {
+            totalSum += recentTransactions[i].amount;
+          }
         }
-      }
 
-      return {
-        'day': DateFormat.E().format(weekDay).substring(0, 1),
-        'amount': totalSum,
-      };
-    });
+        return {
+          'day': DateFormat.E().format(weekDay).substring(0, 1),
+          'amount': totalSum,
+        };
+      },
+    );
   }
 
   double get totalSpending {
@@ -47,18 +50,20 @@ class Chart extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionValues.map((data) {
-            return Flexible(
-              fit: FlexFit.tight,
-              child: ChartBar(
-                data['day'],
-                data['amount'],
-                totalSpending == 0.0
-                    ? 0.0
-                    : (data['amount'] as double) / totalSpending,
-              ),
-            );
-          }).toList(),
+          children: groupedTransactionValues.map(
+            (data) {
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                  data['day'],
+                  data['amount'],
+                  totalSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / totalSpending,
+                ),
+              );
+            },
+          ).toList(),
         ),
       ),
     );
